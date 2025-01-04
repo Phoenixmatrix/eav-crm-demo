@@ -2,7 +2,6 @@ import { createRequestHandler } from "react-router";
 
 declare global {
   interface CloudflareEnvironment {
-    PUBLIC_KEY: string;
     VALUE_FROM_CLOUDFLARE: string;
   }
 }
