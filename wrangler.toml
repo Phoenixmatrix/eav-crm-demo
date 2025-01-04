@@ -1,0 +1,9 @@
+workers_dev = true
+name = "eav-crm-demo"
+compatibility_date = "2024-11-18"
+main = "./build/server/index.js"
+assets = { directory = "./build/client/" }
+
+[vars]
+PUBLIC_KEY = "3bb951cae129c3b80f416bc7d54c0b87130bbce778dd76c1cd7d0d4fe05f7c24"
+VALUE_FROM_CLOUDFLARE = "Hello from Cloudflare"
