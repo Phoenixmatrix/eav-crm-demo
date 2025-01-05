@@ -8,11 +8,14 @@
 		"start": "node server.js",
 		"typecheck": "react-router typegen && tsc",
 		"format": "biome format --write .",
-		"lint": "biome lint --write ."
+		"lint": "biome lint --write .",
+		"setup-db": "node --import tsx database/setup.tsx"
 	},
 	"dependencies": {
 		"@react-router/express": "^7.1.1",
 		"@react-router/node": "^7.1.1",
+		"@types/better-sqlite3": "^7.6.12",
+		"better-sqlite3": "^11.7.2",
 		"compression": "^1.7.5",
 		"express": "^4.21.1",
 		"isbot": "^5.1.17",
@@ -39,8 +42,10 @@
 		"cross-env": "^7.0.3",
 		"postcss": "^8.4.49",
 		"tailwindcss": "^3.4.17",
+		"tsx": "^4.19.2",
 		"typescript": "^5.7.2",
 		"vite": "^5.4.11",
 		"vite-tsconfig-paths": "^5.1.4"
-	}
+	},
+	"packageManager": "pnpm@9.7.1+sha512.faf344af2d6ca65c4c5c8c2224ea77a81a5e8859cbc4e06b1511ddce2f0151512431dd19e6aff31f2c6a8f5f2aced9bd2273e1fed7dd4de1868984059d2c4247"
 }

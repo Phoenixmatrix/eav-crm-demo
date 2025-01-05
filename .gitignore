@@ -4,3 +4,8 @@
 # React Router
 /.react-router/
 /build/
+/database/crm.db
+/database/crm.db-wal
+/database/crm.db-shm
+/database/.db
+
