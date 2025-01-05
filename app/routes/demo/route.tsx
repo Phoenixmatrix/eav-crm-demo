@@ -10,11 +10,6 @@ interface RouteInfo {
 
 const routes: RouteInfo[] = [
 	{
-		path: "/diagnostic",
-		title: "Users",
-		description: "View all users in the system",
-	},
-	{
 		path: "/entity-types",
 		title: "Entity Types",
 		description: "View and manage entity types that define your data model",
@@ -47,10 +42,10 @@ export default function Demo() {
 							href={route.path}
 							className="block p-4 rounded-lg border border-gray-200 hover:border-blue-500 hover:shadow-md transition-all"
 						>
-							<h2 className="text-lg font-semibold text-blue-600">
+							<h2 className="text-lg font-semibold text-blue-300">
 								{route.title}
 							</h2>
-							<p className="text-gray-600 mt-2">{route.description}</p>
+							<p className="text-gray-300 mt-2">{route.description}</p>
 						</Link>
 					</li>
 				))}
