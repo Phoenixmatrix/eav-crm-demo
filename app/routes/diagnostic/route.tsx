@@ -2,6 +2,7 @@ import type { Route } from "./+types/route";
 import { getDb } from "../../data/db";
 import { Table, TableHeader, Column, Row, Cell } from "../../components/Table";
 import { TableBody } from "react-aria-components";
+import { Link } from "../../components/Link";
 
 interface Users {
 	id: number;
@@ -21,8 +22,16 @@ export function loader({ context }: Route.LoaderArgs) {
 export default function Home({ loaderData }: Route.ComponentProps) {
 	const result = loaderData.result;
 	return (
-		<main>
-			<h1>SQLite demo</h1>
+		<main className="p-8">
+			<div className="mb-8">
+				<Link
+					href="/demo"
+					className="text-gray-400 hover:text-gray-600 mb-2 inline-block"
+				>
+					← Back to Demo
+				</Link>
+				<h1 className="text-2xl font-semibold text-gray-400">Users</h1>
+			</div>
 			<Table className="w-2/3" aria-label="SQLite demo">
 				<TableHeader>
 					<Column id="id" isRowHeader>

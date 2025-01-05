@@ -4,22 +4,34 @@ import { Table, TableHeader, Column, Row, Cell } from "../../components/Table";
 import { TableBody } from "react-aria-components";
 import { Link } from "../../components/Link";
 
-interface EntityType {
+interface Attribute {
 	id: number;
 	name: string;
 	description: string | null;
+	data_type: string;
+	entity_type_name: string;
 	created_at: string;
 }
 
 export function loader({ context }: Route.LoaderArgs) {
 	const db = getDb();
 	const result = db
-		.prepare("SELECT id, name, description, created_at FROM entity_types")
-		.all() as EntityType[];
+		.prepare(`
+            SELECT
+                a.id,
+                a.name,
+                a.description,
+                a.data_type,
+                et.name as entity_type_name,
+                a.created_at
+            FROM attributes a
+            JOIN entity_types et ON a.entity_type_id = et.id
+        `)
+		.all() as Attribute[];
 	return { result };
 }
 
-export default function EntityTypes({ loaderData }: Route.ComponentProps) {
+export default function Attributes({ loaderData }: Route.ComponentProps) {
 	const result = loaderData.result;
 	return (
 		<main className="p-8">
@@ -30,15 +42,17 @@ export default function EntityTypes({ loaderData }: Route.ComponentProps) {
 				>
 					← Back to Demo
 				</Link>
-				<h1 className="text-2xl font-semibold text-gray-400">Entity Types</h1>
+				<h1 className="text-2xl font-semibold text-gray-400">Attributes</h1>
 			</div>
-			<Table className="w-2/3" aria-label="Entity Types">
+			<Table className="w-2/3" aria-label="Attributes">
 				<TableHeader>
 					<Column id="id" isRowHeader>
 						ID
 					</Column>
 					<Column id="name">Name</Column>
 					<Column id="description">Description</Column>
+					<Column id="data_type">Data Type</Column>
+					<Column id="entity_type">Entity Type</Column>
 					<Column id="created_at">Created At</Column>
 				</TableHeader>
 				<TableBody items={result}>
@@ -47,6 +61,8 @@ export default function EntityTypes({ loaderData }: Route.ComponentProps) {
 							<Cell>{row.id}</Cell>
 							<Cell>{row.name}</Cell>
 							<Cell>{row.description || "-"}</Cell>
+							<Cell>{row.data_type}</Cell>
+							<Cell>{row.entity_type_name}</Cell>
 							<Cell>{row.created_at}</Cell>
 						</Row>
 					)}
