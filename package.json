@@ -4,38 +4,36 @@
   "type": "module",
   "scripts": {
     "build": "react-router build",
-    "dev": "react-router dev",
-    "start": "wrangler dev",
-    "typecheck": "react-router typegen && tsc",
-    "discord:setup": "node --import tsx app/discord/setup.tsx",
-    "discord:serve": "ngrok http 3000"
+    "dev": "cross-env NODE_ENV=development node server.js",
+    "start": "node server.js",
+    "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
+    "@react-router/express": "^7.1.1",
     "@react-router/node": "^7.1.1",
-    "@react-router/serve": "^7.1.1",
-    "discord-interactions": "^4.1.0",
+    "compression": "^1.7.5",
+    "express": "^4.21.1",
     "isbot": "^5.1.17",
+    "morgan": "^1.10.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router": "^7.1.1",
-    "tiny-invariant": "^1.3.3",
-    "zod": "^3.24.1"
+    "react-router": "^7.1.1"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20241112.0",
     "@react-router/dev": "^7.1.1",
-    "@types/node": "^20.17.11",
+    "@types/compression": "^1.7.5",
+    "@types/express": "^5.0.0",
+    "@types/express-serve-static-core": "^5.0.1",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^20",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.1",
     "autoprefixer": "^10.4.20",
-    "ngrok": "5.0.0-beta.2",
+    "cross-env": "^7.0.3",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.16",
-    "tsx": "^4.19.2",
     "typescript": "^5.7.2",
     "vite": "^5.4.11",
-    "vite-tsconfig-paths": "^5.1.4",
-    "wrangler": "^3.87.0"
-  },
-  "packageManager": "pnpm@9.7.1"
+    "vite-tsconfig-paths": "^5.1.4"
+  }
 }
