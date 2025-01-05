@@ -40,6 +40,7 @@ export default function EntityTypes({ loaderData }: Route.ComponentProps) {
 					<Column id="name">Name</Column>
 					<Column id="description">Description</Column>
 					<Column id="created_at">Created At</Column>
+					<Column id="actions">Actions</Column>
 				</TableHeader>
 				<TableBody items={result}>
 					{(row) => (
@@ -48,6 +49,14 @@ export default function EntityTypes({ loaderData }: Route.ComponentProps) {
 							<Cell>{row.name}</Cell>
 							<Cell>{row.description || "-"}</Cell>
 							<Cell>{row.created_at}</Cell>
+							<Cell>
+								<Link
+									href={`/entity-types/${row.id}`}
+									className="text-blue-400 hover:text-blue-600"
+								>
+									View Entities
+								</Link>
+							</Cell>
 						</Row>
 					)}
 				</TableBody>
