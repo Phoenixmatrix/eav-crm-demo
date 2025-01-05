@@ -261,13 +261,19 @@ function setupDatabase() {
 			];
 
 			// Get attribute IDs for product fields
+			interface ProductAttribute {
+				id: number;
+				name: string;
+				data_type: string;
+			}
+
 			const productAttrs = db
 				.prepare(`
 				SELECT id, name, data_type
 				FROM attributes
 				WHERE entity_type_id = ?
 			`)
-				.all(productType.lastInsertRowid);
+				.all(productType.lastInsertRowid) as ProductAttribute[];
 
 			// Insert product entities and their values
 			for (const product of products) {
@@ -275,16 +281,17 @@ function setupDatabase() {
 				const entityId = entityResult.lastInsertRowid;
 
 				for (const attr of productAttrs) {
-					let valueText = null;
-					let valueNumber = null;
-					let valueBoolean = null;
+					let valueText: string | null = null;
+					let valueNumber: number | null = null;
+					const valueBoolean: number | null = null;
 
+					const value = product[attr.name as keyof typeof product];
 					switch (attr.data_type) {
 						case "text":
-							valueText = product[attr.name as keyof typeof product];
+							valueText = String(value);
 							break;
 						case "number":
-							valueNumber = product[attr.name as keyof typeof product];
+							valueNumber = Number(value);
 							break;
 					}
 
