@@ -25,7 +25,9 @@ function setupDatabase() {
                 username TEXT NOT NULL UNIQUE,
                 email TEXT NOT NULL,
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-            )
+            );
+            CREATE INDEX IF NOT EXISTS idx_users_username ON users(username);
+            CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
         `);
 
 		// Create entity_types table
@@ -35,7 +37,8 @@ function setupDatabase() {
                 name TEXT NOT NULL UNIQUE,
                 description TEXT,
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-            )
+            );
+            CREATE INDEX IF NOT EXISTS idx_entity_types_name ON entity_types(name);
         `);
 
 		// Create attributes table
@@ -49,7 +52,10 @@ function setupDatabase() {
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (entity_type_id) REFERENCES entity_types(id),
                 UNIQUE(name, entity_type_id)
-            )
+            );
+            CREATE INDEX IF NOT EXISTS idx_attributes_entity_type ON attributes(entity_type_id);
+            CREATE INDEX IF NOT EXISTS idx_attributes_name ON attributes(name);
+            CREATE INDEX IF NOT EXISTS idx_attributes_data_type ON attributes(data_type);
         `);
 
 		// Create entities table
@@ -59,7 +65,8 @@ function setupDatabase() {
                 entity_type_id INTEGER NOT NULL,
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (entity_type_id) REFERENCES entity_types(id)
-            )
+            );
+            CREATE INDEX IF NOT EXISTS idx_entities_entity_type ON entities(entity_type_id);
         `);
 
 		// Create values table
@@ -76,7 +83,14 @@ function setupDatabase() {
                 FOREIGN KEY (entity_id) REFERENCES entities(id),
                 FOREIGN KEY (attribute_id) REFERENCES attributes(id),
                 UNIQUE(entity_id, attribute_id)
-            )
+            );
+            CREATE INDEX IF NOT EXISTS idx_entity_values_entity ON entity_values(entity_id);
+            CREATE INDEX IF NOT EXISTS idx_entity_values_attribute ON entity_values(attribute_id);
+            CREATE INDEX IF NOT EXISTS idx_entity_values_composite ON entity_values(entity_id, attribute_id);
+            CREATE INDEX IF NOT EXISTS idx_entity_values_text ON entity_values(value_text) WHERE value_text IS NOT NULL;
+            CREATE INDEX IF NOT EXISTS idx_entity_values_number ON entity_values(value_number) WHERE value_number IS NOT NULL;
+            CREATE INDEX IF NOT EXISTS idx_entity_values_date ON entity_values(value_date) WHERE value_date IS NOT NULL;
+            CREATE INDEX IF NOT EXISTS idx_entity_values_boolean ON entity_values(value_boolean) WHERE value_boolean IS NOT NULL;
         `);
 
 		// Insert test users
