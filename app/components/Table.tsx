@@ -32,7 +32,14 @@ export function Table(props: TableProps) {
 				props.className as string,
 			)}
 		>
-			<AriaTable {...props} className="border-separate border-spacing-0" />
+			<AriaTable
+				{...props}
+				className="border-separate border-spacing-0 w-full"
+				style={{
+					tableLayout: "fixed",
+					minWidth: "100%",
+				}}
+			/>
 		</ResizableTableContainer>
 	);
 }
@@ -48,6 +55,8 @@ const resizerStyles = tv({
 });
 
 export function Column(props: ColumnProps) {
+	const defaultWidth = props.width || "1fr";
+
 	return (
 		<AriaColumn
 			{...props}
@@ -55,6 +64,11 @@ export function Column(props: ColumnProps) {
 				props.className,
 				"[&:hover]:z-20 [&:focus-within]:z-20 text-start text-sm font-semibold text-gray-700 dark:text-zinc-300 cursor-default",
 			)}
+			style={{
+				...props.style,
+				width: defaultWidth,
+				minWidth: props.minWidth || "100px",
+			}}
 		>
 			{composeRenderProps(
 				props.children,
