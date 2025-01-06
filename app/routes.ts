@@ -6,6 +6,10 @@ export default [
 	route("diagnostic", "routes/diagnostic/route.tsx"),
 	route("entity-types", "routes/entity-types/route.tsx"),
 	route("entity-types/:id", "routes/entity-types/$id/route.tsx"),
+	route(
+		"entity-types/:id/attributes",
+		"routes/entity-types/$id/attributes/route.tsx",
+	),
 	route("attributes", "routes/attributes/route.tsx"),
 	route("entities", "routes/entities/route.tsx"),
 	route("entity-values", "routes/entity-values/route.tsx"),
